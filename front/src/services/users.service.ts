@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "../interfaces/user.interface";
+import { User, UserScore } from "../interfaces/user.interface";
 
 const API_BASE_URL: any = import.meta.env.VITE_API_URL
 

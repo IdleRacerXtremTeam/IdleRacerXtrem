@@ -5,4 +5,6 @@ export interface User {
   skin_id: number
   token: string
   score: number
+  money: number,
+  money_unite: string
 }

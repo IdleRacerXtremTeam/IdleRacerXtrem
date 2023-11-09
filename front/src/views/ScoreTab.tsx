@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getScores } from "../services/users.service";
-import { User } from "../interfaces/user.interface";
+import { User, UserScore } from "../interfaces/user.interface";
 import "../assets/styles/ScoreTab.scss";
 import { motion } from 'framer-motion'
+
 
 const ScoreTab = () => {
   const [scores, setScores] = useState<User[]>();
@@ -26,14 +27,14 @@ const ScoreTab = () => {
           <thead>
             <tr>
               <th>Player Name</th>
-              <th>Score</th>
+              <th>Money</th>
             </tr>
           </thead>
           <tbody>
-            {scores.map((user, index) => (
+            {scores.map((score, index) => (
               <tr key={index}>
-                <td>{user.name}</td>
-                <td>{user.score}</td>
+                <td>{score.name}</td>
+                <td>{`${score.money} ${score.money_unite}`}</td>
               </tr>
             ))}
           </tbody>
