@@ -47,7 +47,7 @@ const Home = (): JSX.Element => {
           <Link to="/game">
             <button className={(user != null) ? 'start-button' : 'start-button-desactived'}>START</button>
           </Link>
-          <div style={{marginTop: '1em'}}>
+          <div style={{ marginTop: '1em' }}>
             <Link to="/scores">
             <button className={(user != null) ? 'start-button' : 'start-button-desactived'}>SCORES</button>
             </Link>
