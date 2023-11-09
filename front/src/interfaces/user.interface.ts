@@ -4,4 +4,5 @@ export interface User {
   name: string
   skin_id: number
   token: string
+  score: number
 }
