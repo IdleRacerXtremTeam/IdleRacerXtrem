@@ -3,6 +3,7 @@ import { RedisClient } from "./redis.provider";
 import { IRedisData, IRedisUpgrade, Unit } from "../shared/shared.model";
 import { User } from "../user/user.entity";
 import {PurchaseError} from "../exceptions/PurchaseError";
+import {calculatePaiement} from "../utils/game.utils";
 
 
 @Injectable()
@@ -135,6 +136,13 @@ export class RedisService {
     async pay(userId: number, amount: { value: number, unit: Unit }): Promise<boolean> {
         let userMoney = await this.getUserMoney(userId);
         let userMoneyUnit = +await this.getUserMoneyUnit(userId);
+
+        const foo = calculatePaiement({money: userMoney, unit: userMoneyUnit}, {money: amount.value, unit: amount.unit})
+        console.log("foo", foo);
+        this.client.incrbyfloat(`${userId}:MONEY`, foo.moneyIncr);
+        this.client.incrbyfloat(`${userId}:MONEY_UNIT`, foo.unitIncr);
+        return true;
+        /*
         // Vérifier si l'unité d'argent de l'utilisateur est supérieure ou égale à l'unité du montant à payer
         if (userMoneyUnit >= amount.unit) {
             let differenceUnite = userMoneyUnit - amount.unit;
@@ -165,6 +173,7 @@ export class RedisService {
         }
         // Retourner faux si le paiement a échoué
         throw new PurchaseError(userMoney.toString(), amount.value.toString());
+         */
     }
 
     public async loadUserInRedis(user: User) {
